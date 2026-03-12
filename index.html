@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bukber Alumni MDTA Al-Furqan 2025</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Nunito',sans-serif;
+background:linear-gradient(135deg,#0f2d1f,#1f5c3f,#0c1f16);
+background-size:400% 400%;
+animation:bgmove 12s ease infinite;
+color:white;
+text-align:center;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.hero h1{
+font-family:'Cinzel',serif;
+font-size:44px;
+letter-spacing:2px;
+text-shadow:0 0 15px rgba(255,215,0,0.4);
+margin-bottom:10px;
+}
+
+.hero h2{
+font-weight:300;
+opacity:0.9;
+}
+
+button{
+margin-top:25px;
+padding:14px 32px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ffd700,#ffb700);
+color:black;
+font-weight:600;
+cursor:pointer;
+font-size:15px;
+box-shadow:0 6px 20px rgba(0,0,0,0.4);
+transition:0.3s;
+}
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+section{
+padding:70px 20px;
+}
+
+.card{
+background:rgba(255,255,255,0.95);
+color:#222;
+max-width:650px;
+margin:auto;
+padding:35px;
+border-radius:18px;
+backdrop-filter:blur(10px);
+box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+
+.card h3{
+font-family:'Cinzel';
+margin-bottom:20px;
+}
+
+.detail{
+line-height:1.8;
+font-size:17px;
+}
+
+.countdown{
+font-size:30px;
+font-weight:700;
+margin-top:15px;
+color:#1f5c3f;
+}
+
+a.button{
+display:inline-block;
+margin-top:20px;
+background:linear-gradient(45deg,#1f5c3f,#2f7d58);
+color:white;
+padding:12px 24px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+transition:0.3s;
+}
+
+a.button:hover{
+transform:translateY(-3px);
+}
+
+.reveal{
+opacity:0;
+transform:translateY(70px);
+transition:all 0.9s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+footer{
+margin-top:60px;
+padding:25px;
+opacity:0.8;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero reveal">
+<h1>Buka Puasa Bersama</h1>
+<h2>Alumni MDTA Al-Furqan Angkatan 2025</h2>
+<button onclick="openInvite()">Buka Undangan</button>
+</section>
+
+<section class="reveal">
+<div class="card">
+
+<h3>Detail Acara</h3>
+
+<div class="detail">
+<b>Tanggal</b><br>
+Minggu, 15 Maret 2026<br><br>
+
+<b>Waktu</b><br>
+17.00 s.d selesai<br><br>
+
+<b>Tempat</b><br>
+Pawone Khanza
+</div>
+
+<a class="button" href="https://maps.app.goo.gl/D8yDxCugxRZKSE8GA" target="_blank">
+Lihat Lokasi
+</a>
+
+</div>
+</section>
+
+<section class="reveal">
+<div class="card">
+
+<h3>Countdown Acara</h3>
+<div class="countdown" id="countdown">Loading...</div>
+
+</div>
+</section>
+
+<section class="reveal">
+<div class="card">
+
+<h3>Konfirmasi Kehadiran</h3>
+<p>Silakan mengisi formulir kehadiran melalui tautan berikut.</p>
+
+<a class="button" href="https://forms.gle/Ls66tK4e2y7i8thG8" target="_blank">
+Isi Form Kehadiran
+</a>
+
+</div>
+</section>
+
+<footer>
+Alumni MDTA Al-Furqan Angkatan 2025
+</footer>
+
+<script>
+
+function reveal(){
+let elements=document.querySelectorAll(".reveal");
+
+elements.forEach(el=>{
+let windowHeight=window.innerHeight;
+let elementTop=el.getBoundingClientRect().top;
+
+if(elementTop < windowHeight-100){
+el.classList.add("active");
+}
+});
+}
+
+window.addEventListener("scroll",reveal);
+reveal();
+
+function openInvite(){
+window.scrollTo({
+top:window.innerHeight,
+behavior:"smooth"
+});
+}
+
+const eventDate=new Date("March 15, 2026 17:00:00").getTime();
+
+const timer=setInterval(function(){
+
+let now=new Date().getTime();
+let distance=eventDate-now;
+
+let days=Math.floor(distance/(1000*60*60*24));
+let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+let seconds=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+days+" hari "+hours+" jam "+minutes+" menit "+seconds+" detik";
+
+if(distance<0){
+clearInterval(timer);
+document.getElementById("countdown").innerHTML="Acara Sedang Berlangsung";
+}
+
+},1000);
+
+</script>
+
+</body>
+</html>
